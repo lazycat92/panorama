@@ -1,0 +1,72 @@
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>panorama</title>
+		<script src="js/three.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="js/Panolens.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/panolens-offline.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#container {
+				width: 600px;
+				height: 600px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			.panorama-video {
+				width: 500px;
+				text-align: center;
+				background: rgba(255, 255, 255, .7);
+				padding-bottom: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="panorama-container" id="container">
+			
+			<div class="panorama-video" id="myvideo" style="display: none;">
+			<h3>I AM A VIDEO</h3>
+			<video width="400" autoplay="autoplay">
+				<source src="video/ClashofClans.mp4" type="video/mp4"></source>
+				当前浏览器不支持 video直接播放，点击这里下载视频： <a href="myvideo.webm">下载视频</a>
+			</video>
+		</div>
+		</div>
+
+		
+
+		<script>
+			var panorama1, viewer, infospot, panorama2, infospot2, text1, text2;
+
+			infospot = new PANOLENS.Infospot( 300,"" );
+    		infospot.position.set(-1160.86, 161.93, -4851.66);
+			infospot.addHoverElement( document.getElementById('myvideo'), 150);
+			
+			infospot2 = new PANOLENS.Infospot( 300,"" );
+    		infospot2.position.set(2940.63, -683.09, 3979.67);
+			infospot2.addHoverText("我是路标", 20);
+
+			panorama1 = new PANOLENS.ImagePanorama('img/road.jpg');
+			panorama2 = new PANOLENS.ImagePanorama('img/sunset.jpg');
+			
+			viewer = new PANOLENS.Viewer({
+				container: document.getElementById("container"),
+				autoHideInfospot: false,
+				output: 'console'
+			});
+			
+			panorama1.add(infospot);
+			panorama1.add(infospot2);
+			panorama1.link(panorama2, new THREE.Vector3(4968.89, 121.01, -502.87));
+			panorama2.link(panorama1, new THREE.Vector3(-3429.01, 1205.85, -3421.88));
+
+			viewer.add(panorama1);
+			viewer.add(panorama2);
+			
+		</script>
+	</body>
+
+</html>
